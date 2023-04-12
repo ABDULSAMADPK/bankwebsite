@@ -1,0 +1,154 @@
+<nav *ngIf="!deleteConfirm" class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <div class="col-lg-10">
+            <a class="navbar-brand" routerLink="dashboard">
+                <img src="https://cdn-icons-png.flaticon.com/512/3007/3007575.png" alt="Logo" width="40" height="35"
+                    class="d-inline-block align-text-top">
+                &nbsp;
+                Online Banking App
+            </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Services
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" data-bs-toggle="offcanvas" href="#offcanvasDeposit">Deposit</a>
+                        </li>
+                        <li><a class="dropdown-item" routerLink="/fundtransfer">Fund Transfer</a></li>
+                        <li><a class="dropdown-item" (click)="getBalance()" data-bs-toggle="offcanvas"
+                                href="#offcanvasExample">Balance Enquiry</a></li>
+                        <li><a class="dropdown-item" routerLink="/transactions">Mini Statement</a></li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item btn" (click)="deleteAccountFromNavBar()"><i
+                                    class="fa fa-solid fa-trash"></i> My Account</a></li>
+                        <li><a class="dropdown-item btn" (click)="logout()"><i
+                                    class="fa-solid fa-right-from-bracket"></i>
+                                Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- app-delete-confirm -->
+<app-delete-confirm (onDelete)="onDelete($event)" (onCancel)="onCancel()" [item]="acno"></app-delete-confirm>
+
+<!-- delete spinner -->
+
+<div *ngIf="deleteSpinnerDiv" class="container mt-5">
+    <div class="text-center">
+        <img class="logout"
+            src="https://powerusers.microsoft.com/t5/image/serverpage/image-id/118082i204C32E01666789C/image-size/large/is-moderation-mode/true?v=v2&px=999"
+            alt="logout spinner">
+        <p>Please wait while deleting your account</p>
+    </div>
+</div>
+
+<!-- logout spinner -->
+<div *ngIf="logoutDiv" class="container mt-5">
+    <div class="text-center">
+        <img class="logout"
+            src="https://powerusers.microsoft.com/t5/image/serverpage/image-id/118082i204C32E01666789C/image-size/large/is-moderation-mode/true?v=v2&px=999"
+            alt="logout spinner">
+        <p>Please wait while logging out</p>
+    </div>
+</div>
+
+<!-- dashboard design -->
+
+<div *ngIf="!logoutDiv" class="container">
+    <div *ngIf="!deleteConfirm" class="row">
+        <div class="col-md-4">
+            <h1 style="margin-top: 100px;">Welcome {{user}}</h1>
+            <label class="mt-2" style="text-align: justify;">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad expedita
+                quibusdam ipsa at, nobis alias molestias quisquam esse? Dicta error fuga ipsam dolores repudiandae non
+                quisquam quas tenetur atque corrupti. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Reiciendis temporibus suscipit cupiditate beatae quaerat at placeat unde nulla ad veniam, consectetur ab
+                hic veritatis. Eius dolore iste architecto praesentium quis.</label>
+            <div style="text-align: justify;" class="collapse" id="collapseExample">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium sequi nam sunt voluptates ullam
+                repellendus molestias obcaecati alias, nesciunt, aliquam vitae totam doloremque maiores earum commodi et
+                autem ut. Eius! Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe blanditiis itaque
+                voluptate, quos veniam ab culpa impedit eius placeat ad quis excepturi. Commodi quia voluptatum cum
+                officiis maxime libero sint!
+            </div>
+            <button (click)="collapse()" class="btn btn-primary mt-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Read <span *ngIf="isCollapse">More</span>
+                <span *ngIf="!isCollapse">Less</span>
+            </button>
+
+        </div>
+        <div class="col-md-8">
+            <img class="m-4" height="400px" width="800px"
+                src="https://freepngimg.com/save/15144-online-banking-picture/635x280" alt="no image">
+        </div>
+    </div>
+</div>
+
+<!-- offcanvas - balance enquiry -->
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Balance Enquiry</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="text-center mb-3">
+            <img width="200px"
+                src="https://img.favpng.com/11/0/24/coin-money-icon-png-favpng-a2r67PneLKDXaX3uD0MuSTs2b.jpg"
+                alt="no image">
+        </div>
+        <div class="margin-top:100px;">
+            <h3>Dear {{user}},</h3>
+            <label for="">Your cuurent Account {{currentAcno}} balance is <b>{{balance}}</b></label>
+        </div>
+    </div>
+</div>
+
+<!-- offcanvas - Deposit -->
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasDeposit" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Deposit Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="text-center mb-3">
+            <img width="200px"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbAqyqnzzb6_jcHANmpLmfgeoTBLHccO0_Pg&usqp=CAU"
+                alt="no image">
+        </div>
+        <div class="margin-top:50px;">
+            <h4>Dear {{user}},you can enter the amount to deposit in your account</h4>
+            <form (ngSubmit)="deposit()" [formGroup]="depositForm" class="mt-2 p-2">
+                <div>
+                    <input name="amount" formControlName="amount" type="text" class="form-control"
+                        placeholder="Enter Amount ">
+                </div>
+                <!-- invalid amount -->
+                <div *ngIf="this.depositForm.get('amount')?.errors&&this.depositForm.get('amount')?.touched"
+                    class="text-danger mb-2">
+                    Invalid Amount
+                </div>
+                <div class="text-danger">
+                    {{depositMsg}}
+                </div>
+                <button (click)="showconfetti($event.target)" class="btn btn-primary mt-2">Deposit</button>
+            </form>
+        </div>
+    </div>
+</div>

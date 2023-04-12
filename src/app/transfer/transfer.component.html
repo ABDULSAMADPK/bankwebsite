@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <div class="col-lg-10">
+            <a class="navbar-brand" routerLink="/dashboard">
+                <img src="https://cdn-icons-png.flaticon.com/512/3007/3007575.png" alt="Logo" width="40" height="35"
+                    class="d-inline-block align-text-top">
+                &nbsp;
+                Online Banking App
+            </a>
+        </div>
+    </div>
+</nav>
+<h1 class="mt-3 text-success text-center">FUND TRANSFER</h1>
+<div class="row">
+    <div class="col-7">
+        <img class="mt-5" height="400px" width="800px"
+            src="https://www.globaltax.in/Content/HomePage/images/moneyTransfer%20Home.png" alt="no image">
+    </div>
+    <div class="col-5 mt-4">
+        <form [formGroup]="fundTransferForm" class="border p-5 mt-5 me-5">
+            <div>
+                <input name="toAcno" formControlName="toAcno" type="text" placeholder="Credit Account Number"
+                    class="form-control">
+            </div>
+            <!-- Invalid acno -->
+            <div *ngIf="this.fundTransferForm.get('toAcno')?.errors&&this.fundTransferForm.get('toAcno')?.touched"
+                class="text-danger mb-2">Invalid Account Number</div>
+
+
+            <div class="mt-4">
+                <input name="amount" formControlName="amount" type="text" placeholder="Amount" class="form-control">
+            </div>
+            <!-- Invalid amount -->
+            <div *ngIf="this.fundTransferForm.get('amount')?.errors&&this.fundTransferForm.get('amount')?.touched"
+                class="text-danger mb-2">Invalid Amount</div>
+
+            <div class="mt-4">
+                <input name="pswd" formControlName="pswd" type="password" placeholder="Profile Password"
+                    class="form-control">
+            </div>
+            <!-- Invalid pswd -->
+            <div *ngIf="this.fundTransferForm.get('pswd')?.errors&&this.fundTransferForm.get('pswd')?.touched"
+                class="text-danger mb-2">Invalid Password</div>
+            <!-- fundTransferSuccessMsg -->
+            <div class="text-success mt-2">
+                {{fundTransferSuccessMsg}}
+            </div>
+            <!-- fundTransferErrorMsg -->
+            <div class="text-danger mt-2">
+                {{fundTransferErrorMsg}}
+            </div>
+            <div class="mt-4">
+                <button class="btn btn-primary" (click)="transfer()" type="submit">Transfer
+                </button>
+                <button class="ms-2 btn btn-primary" (click)="clearFundTransferForm()" type="submit" routerLink="/dashboard">Close
+                </button>
+
+            </div>
+        </form>
+    </div>
+</div>
